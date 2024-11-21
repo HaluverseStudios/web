@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haluverse Studios</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome pro ikony -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#about"><i class="fas fa-info-circle"></i> About Us</a></li>
+                <li><a href="#games"><i class="fas fa-gamepad"></i> Games</a></li>
+                <li><a href="#careers"><i class="fas fa-briefcase"></i> Careers</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <h1>Welcome to Haluverse Studios!</h1>
+        <p>Creating immersive worlds, one game at a time.</p>
+        <button>Explore Our Games</button>
+    </section>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Haluverse Studios is a game development studio focused on creating immersive worlds and unforgettable
+            experiences for players worldwide.</p>
+    </section>
+
+    <section id="games">
+        <h2>Our Games</h2>
+        <div class="carousel">
+            <div class="carousel-slide">
+                <img src="fotky/les.webp" alt="Game 1">
+                <img src="fotky/marry.webp" alt="Game 2">
+                <img src="fotky/ouija.webp" alt="Game 3">
+                <img src="fotky/white.webp" alt="Game 4">
+            </div>
+            <button class="prev">&#10094;</button>
+            <button class="next">&#10095;</button>
+        </div>
+    </section>
+
+    <section id="careers">
+        <h2>Join Our Team</h2>
+        <p>We're always looking for passionate developers and artists to join our mission.</p>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form id="contact-form">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="message">Your Message:</label>
+            <textarea id="message" name="message" rows="5" placeholder="Write your message" required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+
+    <footer>
+        <p>&copy; 2024 Haluverse Studios. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Tlačítko "Zpět na začátek" -->
+    <button id="back-to-top" title="Go to top">&#8679;</button>
+
+    <!-- Skript pro hladké scrollování, carousel a tlačítko zpět na začátek -->
+    <script>
+        // Hladké scrollování
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Carousel (slideshow)
+        const carouselSlide = document.querySelector('.carousel-slide');
+        const images = document.querySelectorAll('.carousel-slide img');
+        const prevButton = document.querySelector('.prev');
+        const nextButton = document.querySelector('.next');
+
+        let counter = 0;
+        const size = images[0].clientWidth; // Šířka jednoho obrázku
+
+        function updateCarousel() {
+            carouselSlide.style.transform = `translateX(${-counter * size}px)`;
+        }
+
+        prevButton.addEventListener('click', () => {
+            if (counter <= 0) return;
+            counter--;
+            updateCarousel();
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (counter >= images.length - 1) return;
+            counter++;
+            updateCarousel();
+        });
+
+        setInterval(() => {
+            counter = (counter + 1) % images.length;
+            updateCarousel();
+        }, 3000);
+
+        // Tlačítko "Zpět na začátek"
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+    <script>
+        const contactForm = document.getElementById('contact-form');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Zabrání standardnímu odeslání formuláře
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            alert(`Thank you, ${name}! Your message has been sent.`);
+
+            // Zde můžeš přidat další logiku, např. odeslání dat na server přes API
+            contactForm.reset(); // Vyčistí formulář
+        });
+    </script>
+
+</body>
+
+</html>
